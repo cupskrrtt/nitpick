@@ -1,8 +1,5 @@
 ---@class nitpick.FileLinterConfig
----@field meta table
----@field meta.url string
----@field meta.description string
----@field command string|fun():string
----@field stdin boolean
----@field args string[]
----@field cwd string|fun():string
+---@field command function
+---@field args table
+---@field source string
+---@field parser function
