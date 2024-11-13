@@ -4,6 +4,7 @@ Nitpick is a lightweight and customizable linting plugin for Neovim. It allows y
 
 
 ## TODO
-- [ ] ability for use to list their filetype and linter of choice
-- [ ] append the linter diagnostic to vim diagnostic
+- [x] ability for use to list their filetype and linter of choice
+- [x] append the linter diagnostic to vim diagnostic
+- [ ] add other linter
 
