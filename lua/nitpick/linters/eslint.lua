@@ -1,4 +1,4 @@
-local binary_name = "biome"
+local binary_name = "eslint"
 return {
   command = function()
     local local_binary = vim.fn.fnamemodify("./node_modules/.bin/" .. binary_name, ":p")
@@ -8,6 +8,8 @@ return {
     function()
       return vim.api.nvim_buf_get_name(0)
     end,
+    "--format",
+    "json"
   },
   source = binary_name
 }
