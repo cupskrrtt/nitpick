@@ -14,12 +14,12 @@ end
 
 --- Search the config file for linter inside the /linters folder
 ---@param linter_by_ft table
----@return table
+---@return table|nil
 function M.get_linter(linter_by_ft)
   local filetype = vim.bo.filetype
 
   if not linter_by_ft or not linter_by_ft[filetype] then
-    return {}
+    return nil
   end
 
   for _, linter in pairs(linter_by_ft[filetype]) do
@@ -29,7 +29,7 @@ function M.get_linter(linter_by_ft)
     end
   end
 
-  return {}
+  return nil
 end
 
 return M

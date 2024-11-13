@@ -44,7 +44,7 @@ end
 
 --- Function to run the linter
 ---@private
----@param linter_info table
+---@param linter_info table|nil
 function M.run_linter(linter_info)
   local namespace = vim.api.nvim_create_namespace("nitpick")
 
