@@ -67,6 +67,8 @@ function M.run_linter(linter_info)
     end
   end, linter_info.args)
   local source = linter_info.source
+  local stream = linter_info.stream
+
 
   local handle
 
@@ -83,27 +85,43 @@ function M.run_linter(linter_info)
     on_spawn_exit
   )
 
-  stdout:read_start(
-    vim.schedule_wrap(
-      function(err, data)
-        if err then
-          print("stdout err", err)
-        end
-        if data then
-          local diagnostic = linter_info.parser(data, source)
+  local stdout_output = ""
+  local stderr_output = ""
 
-          vim.diagnostic.set(namespace, bufnr, diagnostic)
-        end
-      end))
+  if stream == "stderr" then
+    stderr:read_start(
+      vim.schedule_wrap(
+        function(err, data)
+          if err then
+            print("stderr err", err)
+          end
+          if data then
+            stderr_output = stderr_output .. data
+            local diagnostic = linter_info.parser(stderr_output, source)
+            if not diagnostic then
+              return
+            end
+            vim.diagnostic.set(namespace, bufnr, diagnostic)
+          end
+        end))
+  else
+    stdout:read_start(
+      vim.schedule_wrap(
+        function(err, data)
+          if err then
+            print("stdout err", err)
+          end
+          if data then
+            stdout_output = stdout_output .. data
 
-  stderr:read_start(function(err, data)
-    if err then
-      print("stderr err", err)
-    end
-    if data then
-      print("stderr data", data)
-    end
-  end)
+            local diagnostic = linter_info.parser(stdout_output, source)
+            if not diagnostic then
+              return
+            end
+            vim.diagnostic.set(namespace, bufnr, diagnostic)
+          end
+        end))
+  end
 end
 
 return M

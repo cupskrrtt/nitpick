@@ -1,4 +1,4 @@
-local binary_name = "eslint"
+local binary_name = "eslint_d"
 
 ---@type nitpick.FileLinterConfig
 return {
@@ -15,17 +15,19 @@ return {
     end
   end,
   args = {
+    "--format",
+    "json",
     function()
       return vim.api.nvim_buf_get_name(0)
-    end,
-    "--format",
-    "json"
+    end
   },
   source = binary_name,
   stream = "stdout",
   parser = function(data, source)
-    -- For eslint the data is returned in json format
+    -- For eslint_d the data is returned in json format
     -- The data can be easily processed by the following code
+    --
+    print(data)
 
     local ok, diag = pcall(vim.json.decode, data)
     if ok then
@@ -57,5 +59,5 @@ return {
     "eslint.config.js",
     "eslint.config.json",
     "eslint.config.ts"
-  }
+  },
 }

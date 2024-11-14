@@ -3,3 +3,4 @@
 ---@field args table
 ---@field source string
 ---@field parser function
+---@field root_pattern table
