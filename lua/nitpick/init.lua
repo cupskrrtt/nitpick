@@ -5,7 +5,28 @@ local M = {}
 function M.setup(opts)
   M.linter_by_ft = opts.linter_by_ft
 
-  M.setup_autocommands()
+  local auto_lint = opts.auto_lint
+
+  if auto_lint == nil or auto_lint == true then
+    M.setup_autocommands()
+  end
+end
+
+vim.api.nvim_create_user_command("NitpickQuickFix", function()
+  M.add_to_quickfix()
+end, { bang = false })
+
+vim.api.nvim_create_user_command("NitpickLint", function()
+  M.try_lint(M.linter_by_ft)
+end, { bang = false })
+
+
+--- Add all diagnostic to quick fix list
+---@private
+function M.add_to_quickfix()
+  local diagnostic = vim.diagnostic.get(vim.api.nvim_get_current_buf())
+  local qflist = vim.diagnostic.toqflist(diagnostic)
+  vim.diagnostic.setqflist(qflist)
 end
 
 --- Function to try lint current buffer
