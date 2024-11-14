@@ -4,3 +4,4 @@
 ---@field source string
 ---@field parser function
 ---@field root_pattern table
+---@field stream string

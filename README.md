@@ -15,10 +15,6 @@ Special thanks to the creator of nvim-lint for providing the foundation that mad
 - **Flexible Linter Configuration**
 - **Community Driven**
 
-## Command
-> NitpickLint  --> for manual linting
-> NitpickQuickFix --> for adding the lint and diagnostic data to quickfix
-
 ## Project Structure
 ```
 .
@@ -88,9 +84,15 @@ Nitpick automatically applies linting based on the configured file types when fi
 :NitpickLint
 ```
 
+Nitpick also capable to send the lint and diagnostic data to the quickfix list, use the following command:
+```vim
+:NitpickQuickFix
+```
+
 ## Example Output
 When `Nitpick` runs, it highlights errors and warnings directly in the code. Here’s a sample of what you might see:
 > [eslint] 'x' is assigned a value but never used. (no-unused-vars) 
+
 > [biome] Unexpected console statement. (no-console)
 All linting issues are displayed in the quickfix or location list, allowing you to quickly navigate between them.
 
