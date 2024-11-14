@@ -26,9 +26,6 @@ return {
   parser = function(data, source)
     -- For eslint_d the data is returned in json format
     -- The data can be easily processed by the following code
-    --
-    print(data)
-
     local ok, diag = pcall(vim.json.decode, data)
     if ok then
       if not diag or type(diag) ~= "table" then
